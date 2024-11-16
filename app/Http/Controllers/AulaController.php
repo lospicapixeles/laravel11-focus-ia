@@ -12,7 +12,9 @@ class AulaController extends Controller
      */
     public function index()
     {
-        //
+       $aulas = aula::get();
+       
+       return $aulas;
     }
 
     /**
@@ -28,7 +30,15 @@ class AulaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $aula = new aula();
+        $aula->name = $request->name;
+        $aula->ubicacion = $request->ubicacion;
+        $aula->save();
+
+        return response()->json([
+            'message' => 'Datos guardados exitosamente',
+            'data' => $aula
+        ], 200);
     }
 
     /**
@@ -52,7 +62,14 @@ class AulaController extends Controller
      */
     public function update(Request $request, aula $aula)
     {
-        //
+        $aula->name = $request->name;
+        $aula->ubicacion = $request->ubicacion;
+        $aula->save();
+
+        return response()->json([
+            'message' => 'Datos actualizados exitosamente',
+            'data' => $aula
+        ], 200);
     }
 
     /**
@@ -60,6 +77,11 @@ class AulaController extends Controller
      */
     public function destroy(aula $aula)
     {
-        //
+        $aula->delete();
+
+        return response()->json([
+            'message' => 'Dato borrado exitosamente',
+            'data' => $aula
+        ], 200);
     }
 }
