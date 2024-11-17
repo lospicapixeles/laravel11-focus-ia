@@ -9,4 +9,5 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::resource('faces', FaceController::class);
+//mas rutas
 
