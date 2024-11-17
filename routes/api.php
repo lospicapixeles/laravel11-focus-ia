@@ -10,5 +10,5 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::resource('faces', FaceController::class);
-
 Route::resource('aulas', AulaController::class);
+Route::resource('camaras',CamaraController::class);
