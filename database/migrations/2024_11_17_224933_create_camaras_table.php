@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('camaras', function (Blueprint $table) {
             $table->id();
-            $table->string('ip');
-            $table->string('port');
-            $table->string('user');
-            $table->string('password');
-            $table->integer('status')->default(1); // 1: activo, 0: inactivo, 2: en mantenimiento
-            $table->string('info');
+            $table->string('ip', 50);
+            $table->string('port', 10); 
+            $table->string('user')->default('admin');
+            $table->string('password')->default('admin');
+            $table->string('nombre');
+            $table->integer('estado')->default(0); // 0 = Desconectada, 1 = Conectada
             $table->unsignedBigInteger('aulas_id');
             $table->foreign('aulas_id')->references('id')->on('aulas');
             $table->timestamps();

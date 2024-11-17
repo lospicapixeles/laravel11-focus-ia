@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\aula;
+use App\Models\Aula;
 use Illuminate\Http\Request;
 
 class AulaController extends Controller
@@ -44,7 +44,7 @@ class AulaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(aula $aula)
+    public function show(Aula $aula)
     {
         //
     }
@@ -52,7 +52,7 @@ class AulaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(aula $aula)
+    public function edit(Aula $aula)
     {
         //
     }
@@ -60,7 +60,7 @@ class AulaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, aula $aula)
+    public function update(Request $request, Aula $aula)
     {
         $aula->name = $request->name;
         $aula->ubicacion = $request->ubicacion;
@@ -75,7 +75,7 @@ class AulaController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(aula $aula)
+    public function destroy(Aula $aula)
     {
         $aula->delete();
 

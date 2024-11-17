@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class camara extends Model
+class Camara extends Model
 {
     //
 }
