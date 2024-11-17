@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\camara;
+use App\Models\Camara;
 use Illuminate\Http\Request;
 
 class CamaraController extends Controller
@@ -34,7 +34,7 @@ class CamaraController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(camara $camara)
+    public function show(Camara $camara)
     {
         //
     }
@@ -42,7 +42,7 @@ class CamaraController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(camara $camara)
+    public function edit(Camara $camara)
     {
         //
     }
@@ -50,7 +50,7 @@ class CamaraController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, camara $camara)
+    public function update(Request $request, Camara $camara)
     {
         //
     }
@@ -58,7 +58,7 @@ class CamaraController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(camara $camara)
+    public function destroy(Camara $camara)
     {
         //
     }

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Aula;
+use App\Models\Emocion;
 use Illuminate\Http\Request;
 
-class AulaController extends Controller
+class EmocionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,7 +34,7 @@ class AulaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Aula $aula)
+    public function show(Emocion $emocion)
     {
         //
     }
@@ -42,7 +42,7 @@ class AulaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Aula $aula)
+    public function edit(Emocion $emocion)
     {
         //
     }
@@ -50,7 +50,7 @@ class AulaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Aula $aula)
+    public function update(Request $request, Emocion $emocion)
     {
         //
     }
@@ -58,7 +58,7 @@ class AulaController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Aula $aula)
+    public function destroy(Emocion $emocion)
     {
         //
     }

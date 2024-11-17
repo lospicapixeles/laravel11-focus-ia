@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\curso;
+use App\Models\Curso;
 use Illuminate\Http\Request;
 
 class CursoController extends Controller
@@ -34,7 +34,7 @@ class CursoController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(curso $curso)
+    public function show(Curso $curso)
     {
         //
     }
@@ -42,7 +42,7 @@ class CursoController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(curso $curso)
+    public function edit(Curso $curso)
     {
         //
     }
@@ -50,7 +50,7 @@ class CursoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, curso $curso)
+    public function update(Request $request, Curso $curso)
     {
         //
     }
@@ -58,7 +58,7 @@ class CursoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(curso $curso)
+    public function destroy(Curso $curso)
     {
         //
     }
