@@ -31,7 +31,7 @@ Route::group([
 Route::resource('faces', FaceController::class)->middleware('auth:api');
 Route::resource('aulas', AulaController::class)->middleware('auth:api');
 Route::resource('camaras',CamaraController::class)->middleware('auth:api');
-Route::resource('camaras',CursoController::class)->middleware('auth:api');
-Route::resource('camaras',CursoUserController::class)->middleware('auth:api');
-Route::resource('camaras',EmocionController::class)->middleware('auth:api');
-Route::resource('camaras',SesionController::class)->middleware('auth:api');
+Route::resource('cursos',CursoController::class)->middleware('auth:api');
+Route::resource('cursousers',CursoUserController::class)->middleware('auth:api');
+Route::resource('emociones',EmocionController::class)->middleware('auth:api');
+Route::resource('sesiones',SesionController::class)->middleware('auth:api');
