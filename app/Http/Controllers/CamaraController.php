@@ -12,7 +12,9 @@ class CamaraController extends Controller
      */
     public function index()
     {
-        //
+        $camaras = Camara::get();
+
+        return $camaras;
     }
 
     /**
@@ -28,7 +30,20 @@ class CamaraController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $camara = new Camara();
+        $camara->ip = $request->ip;
+        $camara->port = $request->port;
+        $camara->user = $request->user;
+        $camara->password = $request->password;
+        $camara->nombre = $request->nombre;
+        $camara->estado = $request->estado;
+        $camara->aulas_id = $request->aulas_id;
+        $camara->save();
+
+        return response()->json([
+            'message' => 'Datos guardados exitosamente',
+            'data' => $camara
+        ], 200);
     }
 
     /**
@@ -52,7 +67,19 @@ class CamaraController extends Controller
      */
     public function update(Request $request, Camara $camara)
     {
-        //
+        $camara->ip = $request->ip;
+        $camara->port = $request->port;
+        $camara->user = $request->user;
+        $camara->password = $request->password;
+        $camara->nombre = $request->nombre;
+        $camara->estado = $request->estado;
+        $camara->aulas_id = $request->aulas_id;
+        $camara->save();
+
+        return response()->json([
+            'message' => 'Datos actualizados exitosamente',
+            'data' => $camara
+        ], 200);
     }
 
     /**
@@ -60,6 +87,11 @@ class CamaraController extends Controller
      */
     public function destroy(Camara $camara)
     {
-        //
+        $camara->delete();
+
+        return response()->json([
+            'message' => 'Dato borrado exitosamente',
+            'data' => $camara
+        ], 200);
     }
 }
