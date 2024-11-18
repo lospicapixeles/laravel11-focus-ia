@@ -12,7 +12,9 @@ class EmocionController extends Controller
      */
     public function index()
     {
-        //
+        $Emociones = Emocion::get();
+
+        return $Emociones;
     }
 
     /**
@@ -28,7 +30,17 @@ class EmocionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $Emocion = new Emocion();
+        $Emocion->expresiones = $request->expresiones;
+        $Emocion->parametros = $request->parametros;
+        $Emocion->sesions_id = $request->sesions_id;
+        $emocion->users_id = $request->users_id;
+        $Emocion->save();
+
+        return response()->json([
+            'message' => 'Datos guardados exitosamente',
+            'data' => $Emocion
+        ], 200);
     }
 
     /**
@@ -52,7 +64,16 @@ class EmocionController extends Controller
      */
     public function update(Request $request, Emocion $emocion)
     {
-        //
+        $Emocion->expresiones = $request->expresiones;
+        $Emocion->parametros = $request->parametros;
+        $Emocion->sesions_id = $request->sesions_id;
+        $emocion->users_id = $request->users_id;
+        $Emocion->save();
+
+        return response()->json([
+            'message' => 'Datos actualizados exitosamente',
+            'data' => $Emocion
+        ], 200);
     }
 
     /**
@@ -60,6 +81,11 @@ class EmocionController extends Controller
      */
     public function destroy(Emocion $emocion)
     {
-        //
+        $Emocion->delete();
+
+        return response()->json([
+            'message' => 'Datos borrados exitosamente',
+            'data' => $Emocion
+        ], 200);
     }
 }

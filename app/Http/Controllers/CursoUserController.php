@@ -12,7 +12,9 @@ class CursoUserController extends Controller
      */
     public function index()
     {
-        //
+        $cursoUsers = CursoUser::get();
+
+        return $cursoUsers;
     }
 
     /**
@@ -28,7 +30,15 @@ class CursoUserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $CursoUser = new CursoUser();
+        $CursoUser->cursos_id = $request->cursos_id;
+        $CursoUser->users_id = $request->users_id;
+        $CursoUser->save();
+
+        return response()->json([
+            'message' => 'Datos Guardados exitosamente',
+            'data' => $CursoUser
+        ], 200);
     }
 
     /**
@@ -52,7 +62,14 @@ class CursoUserController extends Controller
      */
     public function update(Request $request, CursoUser $cursoUser)
     {
-        //
+        $CursoUser->cursos_id = $request->cursos_id;
+        $CursoUser->users_id = $request->users_id;
+        $CursoUser->save();
+
+        return response()->json([
+            'message' => 'Datos actualizados exitosamente',
+            'data' => $CursoUser
+        ], 200);
     }
 
     /**
@@ -60,6 +77,11 @@ class CursoUserController extends Controller
      */
     public function destroy(CursoUser $cursoUser)
     {
-        //
+        $cursoUser->delete();
+
+        return response()->json([
+            'message' => 'Datos borrados exitosamente',
+            'data' => $CursoUser
+        ], 200);
     }
 }

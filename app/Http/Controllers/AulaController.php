@@ -12,7 +12,7 @@ class AulaController extends Controller
      */
     public function index()
     {
-       $aulas = aula::get();
+       $aulas = Aula::get();
        
        return $aulas;
     }
@@ -30,7 +30,7 @@ class AulaController extends Controller
      */
     public function store(Request $request)
     {
-        $aula = new aula();
+        $aula = new Aula();
         $aula->name = $request->name;
         $aula->ubicacion = $request->ubicacion;
         $aula->save();
