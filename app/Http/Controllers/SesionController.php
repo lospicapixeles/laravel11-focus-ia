@@ -87,13 +87,12 @@ class SesionController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Sesion $sesion)
+    public function destroy($id)
     {
-        $sesion->delete();
+        DB::table('sesions')->where('id', $id)->delete();
 
         return response()->json([
             'message' => 'Datos borrados exitosamente',
-            'data' => $sesion
         ], 200);
     }
 
