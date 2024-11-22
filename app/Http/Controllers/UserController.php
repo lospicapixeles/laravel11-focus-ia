@@ -63,5 +63,15 @@ class UserController extends Controller
         return response()->json([
             'message' => 'Usuario eliminado con éxito! :)',
         ], 200);
-     }
+    }
+
+    public function docentes_combo()
+    {
+        $usersCombo = DB::table('users')
+            ->select('id as codigo', 'name as descripcion')
+            ->where('rol', 'docente')
+            ->get();
+
+        return $usersCombo;
+    }
 }

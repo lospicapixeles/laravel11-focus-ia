@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Curso;
 use Illuminate\Http\Request;
+use DB;
 
 class CursoController extends Controller
 {
@@ -93,5 +94,15 @@ class CursoController extends Controller
             'message' => 'Datos borrados exitosamente',
             'data' => $curso
         ], 200);
+    }
+
+    public function cursos_combo(Request $request)
+    {
+        $cursosCombo = DB::table('cursos')
+            ->select('id as codigo', 'nombre as descripcion')
+            ->get();
+
+        return $cursosCombo;
+
     }
 }

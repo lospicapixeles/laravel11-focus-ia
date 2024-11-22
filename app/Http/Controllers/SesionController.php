@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Sesion;
+use App\Models\CursoUser;
 use Illuminate\Http\Request;
 use DB;
 
@@ -36,7 +37,13 @@ class SesionController extends Controller
         $sesion->fecha_fin = $request->fecha_fin;
         $sesion->aulas_id = $request->aulas_id;
         $sesion->cursos_id = $request->cursos_id;
+        $sesion->color = $request->color;
         $sesion->save();
+
+        $cursouser = new CursoUser();
+        $cursouser->cursos_id = $request->cursos_id;
+        $cursouser->users_id = $request->docentes_id;
+        $cursouser->save();
 
         return response()->json([
             'message' => 'Datos guardados exitosamente',

@@ -36,11 +36,14 @@ Route::group(
 
 //api routes
 Route::resource("usuarios", UserController::class)->middleware("auth:api");
+Route::get("docentes_combo", [UserController::class, 'docentes_combo'])->middleware("auth:api");
+
 Route::resource("faces", FaceController::class)->middleware("auth:api");
 Route::resource("aulas", AulaController::class)->middleware("auth:api");
 Route::get('aulas_combo', [AulaController::class, 'aulas_combo'])->middleware("auth:api");
 Route::resource("camaras", CamaraController::class)->middleware("auth:api");
 Route::resource("cursos", CursoController::class)->middleware("auth:api");
+Route::get("cursos_combo", [CursoController::class, 'cursos_combo'])->middleware("auth:api");
 Route::resource("cursousers", CursoUserController::class)->middleware(
     "auth:api"
 );
