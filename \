@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Models\User;
-use DB;
+
 
 class UserController extends Controller
 {
@@ -56,12 +56,16 @@ class UserController extends Controller
 
     }
 
-    public function destroy($id)
+    public function destro(User $user)
     {
-        DB::table('users')->where('id', $id)->delete();
+        $user = User::find($user->id);
+
+        if($user){
+            $user->delete();
+        }
 
         return response()->json([
             'message' => 'Usuario eliminado con éxito! :)',
         ], 200);
-     }
+    }
 }

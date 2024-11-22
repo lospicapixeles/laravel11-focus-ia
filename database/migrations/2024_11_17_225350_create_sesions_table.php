@@ -15,6 +15,9 @@ return new class extends Migration
             $table->id();
             $table->datetime('fecha_inicio');
             $table->datetime('fecha_fin');
+            $table->boolean('allDay')->default(false);
+            $table->string('color')->default('#3788D8');
+            $table->string('textColor')->default('#FFFFFF');
             $table->unsignedBigInteger('aulas_id');
             $table->foreign('aulas_id')->references('id')->on('aulas');
             $table->unsignedBigInteger('cursos_id');

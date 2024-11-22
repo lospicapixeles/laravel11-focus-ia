@@ -10,11 +10,19 @@ class CursoController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $cursos = Curso::get();
+        $buscar = "";
+        if ($request->buscar) {
+            $buscar = $request->buscar;
+        }
 
-        return $cursos; 
+        $cursos = Curso::where('nombre', 'like', '%' . $buscar . '%')
+            ->orWhere('descripcion', 'like', '%' . $buscar . '%')
+            ->orderBy('id', 'desc')
+            ->paginate($request->cant_reg);
+
+        return $cursos;
     }
 
     /**
@@ -34,7 +42,7 @@ class CursoController extends Controller
         $curso->nombre = $request->nombre;
         $curso->descripcion = $request->descripcion;
         $curso->creditos = $request->creditos;
-        $curso->save(); 
+        $curso->save();
 
         return response()->json([
             'message' => 'Datos guardados exitosamente',
@@ -66,7 +74,7 @@ class CursoController extends Controller
         $curso->nombre = $request->nombre;
         $curso->descripcion = $request->descripcion;
         $curso->creditos = $request->creditos;
-        $curso->save(); 
+        $curso->save();
 
         return response()->json([
             'message' => 'Datos actualizados exitosamente',

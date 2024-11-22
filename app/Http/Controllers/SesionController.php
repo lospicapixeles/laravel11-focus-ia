@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Sesion;
 use Illuminate\Http\Request;
+use DB;
 
 class SesionController extends Controller
 {
@@ -87,5 +88,16 @@ class SesionController extends Controller
             'message' => 'Datos borrados exitosamente',
             'data' => $sesion
         ], 200);
+    }
+
+    public function sessions_by_aulas_id(Request $request)
+    {
+        $sesiones = DB::table('sesions as s')
+            ->join('cursos as c', 'c.id', '=', 's.cursos_id')
+            ->where('s.aulas_id', $request->aulas_id)
+            ->select('s.id', 'c.nombre', 's.fecha_inicio', 's.fecha_fin', 's.allDay', 's.color', 's.textColor')
+            ->get();
+
+        return $sesiones;
     }
 }

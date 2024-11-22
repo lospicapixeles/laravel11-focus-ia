@@ -4,17 +4,26 @@ namespace App\Http\Controllers;
 
 use App\Models\Aula;
 use Illuminate\Http\Request;
+use DB;
 
 class AulaController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-       $aulas = Aula::get();
-       
-       return $aulas;
+        $buscar = "";
+        if ($request->buscar) {
+            $buscar = $request->buscar;
+        }
+
+        $aulas = Aula::where('nombre', 'like', '%' . $buscar . '%')
+            ->orWhere('ubicacion', 'like', '%' . $buscar . '%')
+            ->orderBy('id', 'desc')
+            ->paginate($request->cant_reg);
+
+        return $aulas;
     }
 
     /**
@@ -31,7 +40,7 @@ class AulaController extends Controller
     public function store(Request $request)
     {
         $aula = new Aula();
-        $aula->name = $request->name;
+        $aula->nombre = $request->nombre;
         $aula->ubicacion = $request->ubicacion;
         $aula->save();
 
@@ -83,5 +92,12 @@ class AulaController extends Controller
             'message' => 'Dato borrado exitosamente',
             'data' => $aula
         ], 200);
+    }
+
+    public function aulas_combo(Request $request)
+    {
+        $aulasCombo = DB::table('aulas')->select('id as codigo', 'nombre as descripcion')->get();
+
+        return $aulasCombo;
     }
 }
