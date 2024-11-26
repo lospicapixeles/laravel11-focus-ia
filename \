@@ -2,70 +2,108 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
+use App\Models\Emocion;
 use Illuminate\Http\Request;
-use App\Models\User;
 
-
-class UserController extends Controller
+class EmocionController extends Controller
 {
-    public function index(Request $request)
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
     {
-        $buscar = "";
-        if ($request->buscar) {
-            $buscar = $request->buscar;
-        }
+        $Emociones = Emocion::get();
 
-        $users = User::where('name', 'like', '%' . $buscar . '%')
-            ->orWhere('email', 'like', '%' . $buscar . '%')
-            ->orderBy('id', 'desc')
-            ->paginate($request->cant_reg);
-
-        return $users;
+        return $Emociones;
     }
 
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:4',
-            'face_descriptor' => 'required'
-        ]);
+        // Procesar datos y guardarlos en la base de datos
+        try {
+            $detections = collect($request->face)->map(function ($item) {
+                return [
+                    'expresiones' => json_encode($item['expressions']), // Convertir a JSON para almacenar en DB
+                    'parametros' => json_encode($item['descriptor']), // Convertir a JSON para almacenar en DB
+                    'sesions_id' => $request->sesions_id,
+                    'users_id' => 1
+                ];
+            });
 
-        if ($validator->fails()) {
+
+            // Inserción masiva
+            DB::table('emocions')->insert($detections->toArray());
+
             return response()->json([
-                'message' => 'Por favor, corrige los errores en los campos indicados.',
-                'errors' => $validator->errors()
-            ], 400);
+                'message' => 'Datos guardados exitosamente'
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'Error al guardar los datos',
+                'details' => $e->getMessage()
+            ], 500);
         }
 
-        $user = new User;
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = bcrypt($request->password);
-        $user->face_descriptor = $request->face_descriptor;
-        $user->face_image_url = $request->face_image_url;
-        $user->rol = $request->rol;
-        $user->save();
-
         return response()->json([
-            'message' => 'User successfully registered',
+            'message' => 'Datos guardados exitosamente',
+            'data' => $Emocion
         ], 200);
-
     }
 
-    public function destro(User $user)
+    /**
+     * Display the specified resource.
+     */
+    public function show(Emocion $emocion)
     {
-        $user = User::find($user->id);
+        //
+    }
 
-        if($user){
-            $user->delete();
-        }
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(Emocion $emocion)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, Emocion $emocion)
+    {
+        $Emocion->expresiones = $request->expresiones;
+        $Emocion->parametros = $request->parametros;
+        $Emocion->sesions_id = $request->sesions_id;
+        $emocion->users_id = $request->users_id;
+        $Emocion->save();
 
         return response()->json([
-            'message' => 'Usuario eliminado con éxito! :)',
+            'message' => 'Datos actualizados exitosamente',
+            'data' => $Emocion
+        ], 200);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Emocion $emocion)
+    {
+        $Emocion->delete();
+
+        return response()->json([
+            'message' => 'Datos borrados exitosamente',
+            'data' => $Emocion
         ], 200);
     }
 }
