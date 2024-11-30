@@ -42,14 +42,21 @@ Route::resource("faces", FaceController::class)->middleware("auth:api");
 Route::resource("aulas", AulaController::class)->middleware("auth:api");
 Route::get('aulas_combo', [AulaController::class, 'aulas_combo'])->middleware("auth:api");
 Route::resource("camaras", CamaraController::class)->middleware("auth:api");
+
 Route::resource("cursos", CursoController::class)->middleware("auth:api");
 Route::get("cursos_combo", [CursoController::class, 'cursos_combo'])->middleware("auth:api");
+Route::get("cursos_by_docentes_id", [CursoController::class, 'cursos_by_docentes_id'])->middleware("auth:api");
+
 Route::resource("cursousers", CursoUserController::class)->middleware(
     "auth:api"
 );
 Route::resource("emociones", EmocionController::class)->middleware("auth:api");
+Route::get("get_emociones", [EmocionController::class, 'get_emociones'])->middleware("auth:api");
+Route::get('get_emociones_by_sesions_id', [EmocionController::class, 'get_emociones_by_sesions_id'])->middleware("auth:api");
+Route::get('get_emociones_users_by_sesions_id', [EmocionController::class, 'get_emociones_users_by_sesions_id'])->middleware("auth:api");
 
 Route::resource("sesiones", SesionController::class)->middleware("auth:api");
 Route::get("sessions_by_aulas_id", [SesionController::class, 'sessions_by_aulas_id' ])->middleware("auth:api");
+Route::get("sessions_by_cursos_id", [SesionController::class, 'sessions_by_cursos_id'])->middleware("auth:api");
 
 Route::resource("menuusers", MenuUserController::class)->middleware("auth:api");

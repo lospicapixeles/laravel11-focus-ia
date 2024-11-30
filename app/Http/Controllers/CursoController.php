@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Curso;
 use Illuminate\Http\Request;
 use DB;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class CursoController extends Controller
 {
@@ -104,5 +105,28 @@ class CursoController extends Controller
 
         return $cursosCombo;
 
+    }
+
+    public function cursos_by_docentes_id(Request $request)
+    {
+        $token = JWTAuth::parseToken();
+        $user = $token->authenticate();
+
+        if($user->rol != 'docente'){
+            return response()->json([
+                'message' => 'No eres docente.',
+            ], 401);
+        }
+
+        $cursos = DB::table('sesions as s')
+            ->join('cursos as c', 'c.id', '=', 's.cursos_id')
+            ->join('curso_users as cu', 'cu.cursos_id', '=', 'c.id')
+            ->join('users as u', 'u.id', '=', 'cu.users_id')
+            ->where('u.id', $user->id)
+            ->groupBy('c.id', 'c.nombre')
+            ->select('c.id as codigo', 'c.nombre as descripcion')
+            ->get();
+
+        return $cursos;
     }
 }

@@ -6,6 +6,7 @@ use App\Models\Sesion;
 use App\Models\CursoUser;
 use Illuminate\Http\Request;
 use DB;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class SesionController extends Controller
 {
@@ -105,5 +106,23 @@ class SesionController extends Controller
             ->get();
 
         return $sesiones;
+    }
+
+    public function sessions_by_cursos_id(Request $request)
+    {
+        $token = JWTAuth::parseToken();
+        $user = $token->authenticate();
+
+        $sessions = DB::table('sesions as s')
+            ->join('cursos as c', 'c.id', '=', 's.cursos_id')
+            ->join('curso_users as cu', 'cu.cursos_id', '=', 'c.id')
+            ->join('users as u', 'u.id', '=', 'cu.users_id')
+            ->where('u.id', $user->id)
+            ->where('c.id', $request->cursos_id)
+            ->groupBy('s.id', 's.fecha_inicio', 's.fecha_fin', 'c.nombre', 'u.name')
+            ->select('s.id', 's.fecha_inicio', 's.fecha_fin', 'c.nombre', 'u.name')
+            ->get();
+
+        return $sessions;
     }
 }
